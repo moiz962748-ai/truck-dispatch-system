@@ -312,8 +312,8 @@ function Home() {
     </section>
   );
 
-  // Contact Section
-  const ContactSection = () => {
+ // Contact Section
+ const ContactSection = () => {
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
 
     return (
@@ -331,20 +331,23 @@ function Home() {
 
           <motion.form
             initial={{ opacity: 0, scale: 0.95 }}
-          animate={isVisible.contact ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
+            animate={isVisible.contact ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
             action="https://formsubmit.co/moiz962748@gmail.com"
             method="POST"
             className="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-lg"
           >
+            {/* FormSubmit Configuration */}
             <input type="hidden" name="_subject" value="New contact request from website" />
             <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_next" value="https://truck-dispatch-system.vercel.app/" />
 
             <div className="mb-4 md:mb-6">
               <label className="block text-sm font-medium text-slate-700 mb-2">Name</label>
               <motion.input
                 whileFocus={{ scale: 1.02 }}
                 type="text"
+                name="name" // Added name attribute
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all"
@@ -358,6 +361,7 @@ function Home() {
               <motion.input
                 whileFocus={{ scale: 1.02 }}
                 type="email"
+                name="email" // Added name attribute
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all"
@@ -370,6 +374,7 @@ function Home() {
               <label className="block text-sm font-medium text-slate-700 mb-2">Message</label>
               <motion.textarea
                 whileFocus={{ scale: 1.02 }}
+                name="message" // Added name attribute
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 className="w-full px-4 py-3 rounded-lg border border-slate-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 outline-none transition-all resize-vertical"
@@ -392,7 +397,7 @@ function Home() {
       </section>
     );
   };
-
+  
   return (
     <div className="overflow-hidden">
       <HeroSection />
