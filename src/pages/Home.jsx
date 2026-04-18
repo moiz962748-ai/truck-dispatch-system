@@ -333,7 +333,7 @@ function Home() {
             initial={{ opacity: 0, scale: 0.95 }}
           animate={isVisible.contact ? { opacity: 1, scale: 1 } : { opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
-            action="https://formsubmit.co/moiz962749@gmail.com"
+            action="https://formsubmit.co/moiz962748@gmail.com"
             method="POST"
             className="bg-white p-6 md:p-8 rounded-xl border border-slate-200 shadow-lg"
           >
