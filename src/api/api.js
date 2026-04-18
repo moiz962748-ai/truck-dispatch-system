@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'https://truck-dispatch-api.onrender.com',
+  baseURL: 'https://truck-dispatch-api.onrender.com/api',
   headers: {
     'Content-Type': 'application/json',
   },
