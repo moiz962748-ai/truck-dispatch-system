@@ -18,13 +18,12 @@ function Login() {
     }
   }, [navigate]);
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const performLogin = async ({ email: loginEmail, password: loginPassword }) => {
     setError('');
     setLoading(true);
 
     try {
-      const data = await loginUser({ email, password });
+      const data = await loginUser({ email: loginEmail, password: loginPassword });
       const role = data.user?.role ?? data.role ?? 'driver';
       localStorage.setItem('token', data.token);
       localStorage.setItem('role', role);
@@ -35,6 +34,25 @@ function Login() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await performLogin({ email, password });
+  };
+
+  const handleDemoLogin = (demoEmail, demoPassword, mockUser, route) => {
+    setEmail(demoEmail);
+    setPassword(demoPassword);
+
+    localStorage.setItem('token', mockUser.token);
+    localStorage.setItem('role', mockUser.role);
+    localStorage.setItem('user', JSON.stringify(mockUser));
+
+    // If you add auth context later, update it here as well.
+    // e.g. setUser(mockUser);
+
+    navigate(route, { replace: true });
   };
 
   return (
@@ -60,6 +78,50 @@ function Login() {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Demo Login Buttons */}
+            <div className="grid gap-3 sm:grid-cols-2">
+              <button
+                type="button"
+                onClick={() =>
+                  handleDemoLogin(
+                    'admin@gmail.com',
+                    'admin123',
+                    {
+                      id: 'demo-admin-id',
+                      email: 'admin@gmail.com',
+                      role: 'admin',
+                      name: 'Demo Admin',
+                      token: 'mock-jwt-token-admin',
+                    },
+                    '/admin'
+                  )
+                }
+                className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-blue-400 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-200"
+              >
+                Login as Demo Admin
+              </button>
+              <button
+                type="button"
+                onClick={() =>
+                  handleDemoLogin(
+                    'driver@gmail.com',
+                    'driver123',
+                    {
+                      id: 'demo-driver-id',
+                      email: 'driver1@gmail.com',
+                      role: 'driver',
+                      name: 'Demo Driver',
+                      token: 'mock-jwt-token-driver',
+                    },
+                    '/dashboard'
+                  )
+                }
+                className="inline-flex items-center justify-center rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm font-semibold text-slate-700 transition hover:border-blue-400 hover:bg-slate-50 focus:outline-none focus:ring-2 focus:ring-blue-200"
+              >
+                Login as Demo Driver
+              </button>
+            </div>
+
             {/* Email */}
             <motion.div
               initial={{ opacity: 0 }}
