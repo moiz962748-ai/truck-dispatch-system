@@ -24,6 +24,7 @@ function DriverDashboard() {
     }
   };
 
+<<<<<<< HEAD
   const handleStatusChange = async (loadId, status) => {
     setStatusUpdating(loadId);
     setError('');
@@ -35,6 +36,14 @@ function DriverDashboard() {
 
     try {
       const updatedLoad = await updateLoadStatus(loadId, status);
+=======
+  const handleCompleteLoad = async (loadId) => {
+    setStatusUpdating(loadId);
+    setError('');
+
+    try {
+      const updatedLoad = await updateLoadStatus(loadId, 'Delivered');
+>>>>>>> 5209df9 (Change load refresh interval to 10 minutes)
       setLoads((current) =>
         current.map((load) =>
           load.id === loadId || load._id === loadId ? updatedLoad : load
@@ -42,7 +51,10 @@ function DriverDashboard() {
       );
     } catch (err) {
       setError(err.response?.data?.message || 'Unable to update load status.');
+<<<<<<< HEAD
       await loadMyLoads();
+=======
+>>>>>>> 5209df9 (Change load refresh interval to 10 minutes)
     } finally {
       setStatusUpdating(null);
     }
@@ -50,7 +62,11 @@ function DriverDashboard() {
 
   useEffect(() => {
     loadMyLoads();
+<<<<<<< HEAD
     const interval = setInterval(loadMyLoads, 60000);
+=======
+    const interval = setInterval(loadMyLoads, 600000);
+>>>>>>> 5209df9 (Change load refresh interval to 10 minutes)
     return () => clearInterval(interval);
   }, []);
 
@@ -129,7 +145,11 @@ function DriverDashboard() {
           </div>
         ) : (
           <>
+<<<<<<< HEAD
             <div className="mb-4 text-sm text-slate-500 text-right">Live status updates every 60s</div>
+=======
+            <div className="mb-4 text-sm text-slate-500 text-right">Live status updates every 10 minutes</div>
+>>>>>>> 5209df9 (Change load refresh interval to 10 minutes)
             <div className="grid gap-4 md:grid-cols-2">
               {loads.map((load, idx) => (
               <motion.div
@@ -182,6 +202,7 @@ function DriverDashboard() {
                   )}
                 </div>
 
+<<<<<<< HEAD
                 <div className="mt-6">
                   <label className="mb-2 block text-sm font-semibold text-slate-700">Update Status</label>
                   <select
@@ -195,6 +216,20 @@ function DriverDashboard() {
                     <option value="Delivered">Delivered</option>
                   </select>
                 </div>
+=======
+                {load.status?.toLowerCase() !== 'delivered' && (
+                  <div className="mt-6 flex items-center justify-end">
+                    <button
+                      type="button"
+                      onClick={() => handleCompleteLoad(load.id || load._id)}
+                      disabled={statusUpdating === (load.id || load._id)}
+                      className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700 disabled:opacity-50"
+                    >
+                      {statusUpdating === (load.id || load._id) ? 'Updating...' : 'Mark as Delivered'}
+                    </button>
+                  </div>
+                )}
+>>>>>>> 5209df9 (Change load refresh interval to 10 minutes)
               </motion.div>
             ))}
           </div>

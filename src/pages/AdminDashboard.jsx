@@ -54,7 +54,6 @@ function AdminDashboard() {
     }
   };
 
-  
   useEffect(() => {
     loadData();
   }, []);
@@ -62,7 +61,7 @@ function AdminDashboard() {
   useEffect(() => {
     const interval = setInterval(() => {
       loadData();
-    }, 60000);
+    }, 600000);
 
     return () => clearInterval(interval);
   }, []);
@@ -212,7 +211,7 @@ function AdminDashboard() {
             <p className="mt-2 text-purple-100">Manage loads, assign drivers, and optimize dispatch operations</p>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-sm text-white/80">Live status updates every 60s</span>
+            <span className="text-sm text-white/80">Live status updates every 10 minutes</span>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -226,7 +225,6 @@ function AdminDashboard() {
             Refresh
           </motion.button>
         </div>
-      </div>
       </motion.section>
 
       {lastUpdated && (
@@ -438,7 +436,7 @@ function AdminDashboard() {
                           </span>
                         </td>
                         <td className="px-6 py-4 space-y-2">
-                                        <motion.select
+                          <motion.select
                             whileHover={{ scale: 1.02 }}
                             value={load.assignedDriver?._id || ''}
                             onChange={(e) => handleAssignDriver(loadId, e.target.value)}
